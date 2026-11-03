@@ -1,0 +1,11 @@
+{
+  "name": "smart-timetable-generator",
+  "version": "1.0.0",
+  "description": "A responsive full-stack Smart Timetable Generator using Node.js built-in modules and JSON storage.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": { "node": ">=18" }
+}

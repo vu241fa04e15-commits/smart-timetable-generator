@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Plan, generate and manage your weekly academic timetable.">
+  <title>Smart Timetable Generator</title><link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <div id="toast" class="toast" role="status"></div>
+  <main id="authView" class="auth-shell">
+    <section class="auth-brand">
+      <div class="brand-mark">ST</div><p class="eyebrow">SMART CAMPUS • SMARTER DAYS</p>
+      <h1>Your week,<br><span>beautifully planned.</span></h1>
+      <p class="muted">Generate balanced class schedules, avoid faculty clashes and keep every study day organized.</p>
+      <div class="mini-preview"><div class="preview-top"><span>WEEKLY OVERVIEW</span><span class="live-dot">● LIVE</span></div><div class="preview-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="preview-foot"><span>MON — FRI</span><span>YOUR STUDY FLOW</span></div></div>
+    </section>
+    <section class="auth-card">
+      <div class="auth-tabs"><button class="tab active" data-auth="login">Sign in</button><button class="tab" data-auth="register">Create account</button></div>
+      <form id="authForm">
+        <div id="nameWrap" class="field hidden"><label for="name">Full name</label><input id="name" autocomplete="name" placeholder="Your name"></div>
+        <div class="field"><label for="email">Email address</label><input id="email" type="email" autocomplete="email" placeholder="you@example.com" required></div>
+        <div class="field"><label for="password">Password</label><input id="password" type="password" autocomplete="current-password" placeholder="At least 6 characters" minlength="6" required></div>
+        <button class="primary full" id="authSubmit">Sign in <span>→</span></button>
+      </form>
+      <p class="fine-print">Your timetable data is saved on this device's project server.</p>
+    </section>
+  </main>
+
+  <main id="appView" class="app-shell hidden">
+    <aside class="sidebar">
+      <a class="brand" href="#"><span class="brand-mark small">ST</span><span>Smart<span class="brand-light">Schedule</span></span></a>
+      <p class="side-label">WORKSPACE</p>
+      <button class="nav-item active" data-view="dashboard"><span>▦</span> Dashboard</button>
+      <button class="nav-item" data-view="builder"><span>＋</span> Create timetable</button>
+      <button class="nav-item" data-view="saved"><span>◷</span> Saved schedules</button>
+      <div class="sidebar-bottom"><div class="avatar" id="avatar">U</div><div class="user-meta"><strong id="sideName">Student</strong><small id="sideEmail">student@email.com</small></div><button id="logout" class="logout" title="Sign out">↗</button></div>
+    </aside>
+    <section class="main-area">
+      <header class="topbar"><div><p class="eyebrow">ACADEMIC PLANNER</p><h2 id="pageTitle">Dashboard</h2></div><div class="top-actions"><span class="today-chip" id="todayLabel"></span><button class="primary" id="newTop">＋ New timetable</button></div></header>
+      <section id="dashboardView" class="view">
+        <div class="welcome-card"><div><p class="eyebrow light">YOUR PERSONAL STUDY SPACE</p><h1>Make time for<br>what matters.</h1><p>Build a weekly plan that keeps classes and learning in sync.</p><button class="white-btn" id="startCreate">Create my timetable <span>→</span></button></div><div class="welcome-art"><div class="orbit orbit-a"></div><div class="orbit orbit-b"></div><div class="floating-calendar"><div class="cal-head">THIS WEEK <span>✦</span></div><div class="cal-grid"><b>M</b><b>T</b><b>W</b><b>T</b><b>F</b><i>09</i><i>10</i><i>11</i><i>12</i><i>13</i><i>16</i><i>17</i><i>18</i><i>19</i><i>20</i></div></div></div></div>
+        <div class="section-heading"><div><p class="eyebrow">OVERVIEW</p><h3>Your planning snapshot</h3></div></div>
+        <div class="stats-grid"><article class="stat-card"><span class="stat-icon purple">▦</span><div><small>Saved timetables</small><strong id="statSchedules">0</strong></div></article><article class="stat-card"><span class="stat-icon orange">◷</span><div><small>Class days</small><strong>5 <em>days / week</em></strong></div></article><article class="stat-card"><span class="stat-icon green">✓</span><div><small>Planning status</small><strong>Ready <em>to organize</em></strong></div></article></div>
+        <div class="section-heading"><div><p class="eyebrow">RECENT WORK</p><h3>Recently generated</h3></div><button class="text-btn" data-go="saved">View all →</button></div>
+        <div id="recentList" class="schedule-list empty-state">No schedules yet. Create your first timetable to see it here.</div>
+      </section>
+
+      <section id="builderView" class="view hidden">
+        <div class="intro-row"><div><h3>Build your weekly schedule</h3><p class="muted">Add subjects and weekly periods. We'll distribute them across your available slots.</p></div><span class="step-pill">01 / SETUP</span></div>
+        <div class="builder-layout">
+          <div class="panel subject-panel"><div class="panel-heading"><div><p class="eyebrow">YOUR CURRICULUM</p><h3>Subjects & faculty</h3></div><span class="count-pill" id="subjectCount">0 subjects</span></div>
+            <div id="subjectRows"></div><button class="add-row" id="addSubject">＋ Add another subject</button>
+            <div class="form-divider"></div><div class="field"><label for="scheduleTitle">Timetable name</label><input id="scheduleTitle" value="My Weekly Timetable" maxlength="70"></div>
+            <div class="field"><label for="rooms">Available rooms <small>(comma separated)</small></label><input id="rooms" value="Room 101, Room 102, Computer Lab"></div>
+            <button class="primary full generate-btn" id="generate">Generate smart timetable <span>✦</span></button>
+            <p class="helper">Tip: Periods means how many times a subject should appear during the week.</p>
+          </div>
+          <div class="panel settings-panel"><p class="eyebrow">SCHEDULE SETTINGS</p><h3>Available study slots</h3><p class="muted small-text">The generator uses these weekdays and periods.</p>
+            <div class="field"><label>Days</label><div class="choice-row" id="dayChoices"><label><input type="checkbox" value="Monday" checked>Mon</label><label><input type="checkbox" value="Tuesday" checked>Tue</label><label><input type="checkbox" value="Wednesday" checked>Wed</label><label><input type="checkbox" value="Thursday" checked>Thu</label><label><input type="checkbox" value="Friday" checked>Fri</label></div></div>
+            <div class="field"><label>Periods</label><div class="slot-list" id="slotChoices"><label><input type="checkbox" checked value="09:00 - 10:00">09:00 – 10:00</label><label><input type="checkbox" checked value="10:00 - 11:00">10:00 – 11:00</label><label><input type="checkbox" checked value="11:15 - 12:15">11:15 – 12:15</label><label><input type="checkbox" checked value="12:15 - 13:15">12:15 – 13:15</label><label><input type="checkbox" checked value="14:00 - 15:00">14:00 – 15:00</label><label><input type="checkbox" checked value="15:00 - 16:00">15:00 – 16:00</label></div></div>
+            <div class="tip-card"><span>✦</span><div><strong>Smart distribution</strong><p>Subjects are spread through the week, with a limit of two periods per subject each day.</p></div></div>
+          </div>
+        </div>
+      </section>
+      <section id="savedView" class="view hidden"><div class="section-heading"><div><p class="eyebrow">YOUR LIBRARY</p><h3>Saved schedules</h3><p class="muted">Open or remove a timetable you generated earlier.</p></div></div><div id="allSchedules" class="schedule-list empty-state">Loading schedules…</div></section>
+      <section id="resultView" class="view hidden"><div class="result-toolbar"><div><p class="eyebrow">GENERATED SCHEDULE</p><h3 id="resultTitle">Your timetable</h3><p class="muted" id="resultMeta"></p></div><div class="result-actions"><button class="secondary" id="printBtn">↧ Print / PDF</button><button class="primary" id="backBuilder">＋ New</button></div></div><div id="timetableWrap" class="timetable-wrap"></div><p class="helper">To save as a PDF, choose “Print / PDF” and select “Save as PDF” in your browser's print dialog.</p></section>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body></html>
